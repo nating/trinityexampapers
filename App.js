@@ -5,18 +5,23 @@ import {StackNavigator,DrawerNavigator} from 'react-navigation';
 import * as Screens from './Screens';
 import MyModules from './Screens/Modules/MyModules';
 import ModuleYears from './Screens/Modules/ModuleYears';
+import Paper from './Screens/Modules/Paper';
 import AllCourses from './Screens/Courses/AllCourses';
 import CourseYears from './Screens/Courses/CourseYears';
+import YearModules from './Screens/Courses/YearModules';
 import About from './Screens/About';
+import './global.js';
 
 const MyModulesScreenNavigator = StackNavigator({
   MyModulesd: { screen: MyModules, },
   ModuleYears: { screen: ModuleYears, },
+  Paper: { screen: Paper}
 });
 
 const AllCoursesScreenNavigator = StackNavigator({
   AllCourses: { screen: AllCourses },
   CourseYears: { screen: CourseYears },
+  YearModules: { screen: YearModules}
 });
 
 const AboutScreenNavigator = StackNavigator({
