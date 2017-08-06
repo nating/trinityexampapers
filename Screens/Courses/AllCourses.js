@@ -48,7 +48,7 @@ export default class AllCourses extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={styles.list}>
+      <ScrollView showsVerticalScrollIndicator style={styles.list}>
           {this.state.courses.map(this.createItem)}
         </ScrollView>
     );
@@ -57,7 +57,7 @@ export default class AllCourses extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   item: {
-    height: 80,
+    height: 60,
     justifyContent: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border.base,

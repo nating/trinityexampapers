@@ -46,7 +46,7 @@ export default class ModuleYears extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   item: {
-    height: 80,
+    height: 60,
     justifyContent: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border.base,

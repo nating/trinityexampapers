@@ -1,8 +1,9 @@
 import Expo from 'expo';
 import React,  {Component} from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, TouchableHighlight } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, Button, ScrollView, TouchableHighlight } from 'react-native';
 import {StackNavigator,DrawerNavigator} from 'react-navigation';
 import {RkText,RkStyleSheet} from 'react-native-ui-kitten';
+import MyModulesRow from './MyModules';
 
 
 export default class MyModules extends React.Component {
@@ -11,7 +12,7 @@ export default class MyModules extends React.Component {
   constructor(){
     super();
     this.state = {
-      modules: [{'code':'CS1001','name':'Mathematics'},{'code':'CS1002','name':'Mathematics II'},{'code':'CS1003','name':'MATHEMATICS'}]
+      modules: []
     }
   }
 
@@ -20,14 +21,29 @@ export default class MyModules extends React.Component {
     return {
       title: 'My Modules',
       drawerLabel: 'Home',
-      headerLeft: <Button onPress={() => props.navigation.navigate('DrawerOpen')} title= "=" />
-    }
+      headerLeft: <Button onPress={() => props.navigation.navigate('DrawerOpen')} title= "=" />,
+      header:(// Your custom header
+           <View style={{
+                  height:40,
+                  marginTop:20,// only for IOS to give StatusBar Space
+                  flexDirection:'row',
+                  justifyContent: 'space-between',
+            }}>
+            <Button style={{margin:15}} onPress={() => props.navigation.navigate('DrawerOpen')} title= "=" />
+            <Text style={{textAlign: 'center',alignSelf: 'baseline'}}>My Modules</Text>
+            <Button style={{margin:15}} onPress={() => props.navigation.navigate('DrawerOpen')} title= "=" />
+           </View>
+      )}
   };
 
 //-Methods----------------------------------------------------------------------
 
   //Get the module names from AsyncStorage
   componentWillMount(){
+    AsyncStorage.getItem('my_modules').then((value) => {
+      my_modules = JSON.parse(value);
+      this.setState({modules:my_modules.modules});
+    });
   }
 
   moveToModule(code){
@@ -54,17 +70,26 @@ export default class MyModules extends React.Component {
 
 //-Rendering--------------------------------------------------------------------
   render() {
-    return (
-      <ScrollView style={styles.list}>
-          {this.state.modules.map(this.createItem)}
-        </ScrollView>
-    );
+    if(this.state.modules.length>0){
+      return (
+        <ScrollView style={styles.list}>
+            {this.state.modules.map(this.createItem)}
+          </ScrollView>
+      );
+    }
+    else{
+      return(
+        <View>
+          <Text>You have no modules</Text>
+        </View>
+      )
+    }
   }
 }
 
 let styles = RkStyleSheet.create(theme => ({
   item: {
-    height: 80,
+    height: 60,
     justifyContent: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border.base,

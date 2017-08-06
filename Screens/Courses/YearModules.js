@@ -3,6 +3,7 @@ import React,  {Component} from 'react';
 import { StyleSheet, Text, View, Button, ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native';
 import {StackNavigator,DrawerNavigator} from 'react-navigation';
 import {RkText,RkStyleSheet,RkChoiceGroup,RkChoice} from 'react-native-ui-kitten';
+import CheckModuleRow from './CheckModuleRow';
 
 
 export default class YearModules extends React.Component {
@@ -12,18 +13,11 @@ export default class YearModules extends React.Component {
   });
 
   //Create item for ScrollView of Modules
-  createItem = (module) => (
-      <RkChoiceGroup key={module} rkType='bordered stretch' style={styles.item}>
-        <TouchableOpacity choiceTrigger activeOpacity={.5} onPress={() => alert('hello')} style={{height: '100%',justifyContent: 'center'}}>
-          <View style={styles.container}>
-            <View>
-              <RkText rkType='bold'>{module}</RkText>
-            </View>
-            <RkChoice />
-          </View>
-        </TouchableOpacity>
-      </RkChoiceGroup>
+  createItem = (module) => {
+  return (
+      <CheckModuleRow key={module} module={module}/>
   )
+}
 
   render() {
     return (
@@ -36,7 +30,7 @@ export default class YearModules extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   item: {
-    height: 80,
+    height: 60,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border.base,
     paddingHorizontal: 16
@@ -53,5 +47,12 @@ let styles = RkStyleSheet.create(theme => ({
     width: 34,
     textAlign: 'center',
     marginRight: 16
-  }
+  },
+  checkbox: {
+    width: 30,
+    height: 30,
+    borderRadius: 10,
+    borderColor: 'orange',
+    borderWidth: 2,
+  },
 }));

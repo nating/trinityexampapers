@@ -14,9 +14,17 @@ export default class CourseYears extends React.Component {
 
   openYearModules(year,index){
     const { navigate } = this.props.navigation;
-    navigate('YearModules', { year: index, modules: year });
+    navigate('YearModules', { year: this.yearName(index), modules: year });
   }
 
+  yearName(index){
+    switch(index){
+      case 0: return '1st Year';
+      case 1: return '2nd Year';
+      case 2: return '3rd Year';
+      default: return (index+1)+'th Year';
+    }
+  }
 
   //Create item for ScrollView of Modules
   createItem = (year,index) => (
@@ -26,7 +34,7 @@ export default class CourseYears extends React.Component {
         activeOpacity={1}
         onPress={() => this.openYearModules(year,index)}>
         <View style={styles.container}>
-          <RkText>{index}</RkText>
+          <RkText>{this.yearName(index)}</RkText>
         </View>
       </TouchableHighlight>
   )
@@ -42,7 +50,7 @@ export default class CourseYears extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   item: {
-    height: 80,
+    height: 60,
     justifyContent: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border.base,
